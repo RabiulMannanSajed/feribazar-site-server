@@ -3,6 +3,7 @@ import {
   deleteProduct,
   getAllDeletedProducts,
   getAllProducts,
+  getProductById,
   updateProduct,
 } from "./product.srvices.js";
 
@@ -15,6 +16,16 @@ export const handleCreateProduct = async (req, res) => {
   }
 };
 
+export const handleGetProductById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const product = await getProductById(id);
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
 export const handleUpdateProduct = async (req, res) => {
   try {
     const updated = await updateProduct(req.params.id, req.body);

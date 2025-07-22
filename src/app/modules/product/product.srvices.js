@@ -10,6 +10,18 @@ export const createProduct = async (productData) => {
   }
 };
 
+export const getProductById = async (productId) => {
+  try {
+    const product = await Product.findById(productId);
+    if (!product) {
+      throw new Error("Product not found");
+    }
+    return product;
+  } catch (error) {
+    throw new Error("Failed to fetch product: " + error.message);
+  }
+};
+
 // Update an existing product by ID
 export const updateProduct = async (productId, updateData) => {
   try {

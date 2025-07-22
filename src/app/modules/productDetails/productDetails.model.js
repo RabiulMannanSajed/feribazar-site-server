@@ -14,8 +14,8 @@ const productDetailsSchema = new Schema({
 
   benefit: [
     {
-      title: { type: String, required: true },
-      details: { type: String, required: true },
+      title: { type: String },
+      details: { type: String },
     },
   ],
 
@@ -28,8 +28,8 @@ const productDetailsSchema = new Schema({
 
   cookingProcess: [
     {
-      cookingTitle: { type: String, required: true },
-      process: { type: String, required: true },
+      cookingTitle: { type: String },
+      process: { type: String },
     },
   ],
 });

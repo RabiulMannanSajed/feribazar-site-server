@@ -4,6 +4,7 @@ import { AuthRouter } from "../modules/auth/auth.router.js";
 import { ProductRoutes } from "../modules/product/product.route.js";
 import { ProductDetailsRoutes } from "../modules/productDetails/productDetails.route.js";
 import { ClientOrderRoutes } from "../modules/clientOrder/clientOrder.route.js";
+import { MessageRoutes } from "../modules/message/message.route.js";
 
 const router = Router();
 
@@ -27,6 +28,10 @@ const moduleRouters = [
   {
     path: "/clientOrder",
     route: ClientOrderRoutes,
+  },
+  {
+    path: "/message",
+    route: MessageRoutes,
   },
 ];
 

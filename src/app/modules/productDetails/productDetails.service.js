@@ -23,6 +23,6 @@ export const updateProductDetails = async (productIDs, updateData) => {
 };
 
 export const getAllProductDetails = async () => {
-  const details = await ProductDetails.find().populate("productID");
+  const details = await ProductDetails.find();
   return details;
 };

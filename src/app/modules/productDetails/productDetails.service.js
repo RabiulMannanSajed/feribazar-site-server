@@ -22,13 +22,7 @@ export const updateProductDetails = async (productIDs, updateData) => {
   return result;
 };
 
-// export const getAllProductDetails = async () => {
-//   const details = await ProductDetails.find();
-//   return details;
-// };
-
-export const getAllProduct = async (filter, skip, limit) => {
-  const products = await Product.find(filter).skip(skip).limit(limit);
-  const total = await Product.countDocuments(filter);
-  return { products, total };
+export const getAllProductDetails = async () => {
+  const details = await ProductDetails.find();
+  return details;
 };

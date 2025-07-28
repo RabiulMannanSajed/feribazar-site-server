@@ -52,40 +52,15 @@ export const handleUpdateProductDetails = async (req, res) => {
   }
 };
 
-// export const handleGetAllProductDetails = async (req, res) => {
-//   try {
-//     const allDetails = await getAllProductDetails();
-
-//     if (!allDetails || allDetails.length === 0) {
-//       return res.status(404).json({ message: "No product details found" });
-//     }
-
-//     res.status(200).json(allDetails);
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// };
-
-export const handleGetAllProducts = async (req, res) => {
+export const handleGetAllProductDetails = async (req, res) => {
   try {
-    const { page = 1, limit = 8, category, isDiscount } = req.query;
+    const allDetails = await getAllProductDetails();
 
-    const filter = {};
-
-    if (category) {
-      filter.productType = category.toLowerCase();
+    if (!allDetails || allDetails.length === 0) {
+      return res.status(404).json({ message: "No product details found" });
     }
 
-    if (isDiscount === "discount") {
-      filter.isDiscount = true;
-    }
-
-    const skip = (Number(page) - 1) * Number(limit);
-
-    const products = await Product.find(filter).skip(skip).limit(Number(limit));
-    const total = await Product.countDocuments(filter);
-
-    res.status(200).json({ products, total });
+    res.status(200).json(allDetails);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

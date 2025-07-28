@@ -44,10 +44,32 @@ export const handleDeleteProduct = async (req, res) => {
   }
 };
 
+// export const handleGetAllProducts = async (req, res) => {
+//   try {
+//     const products = await getAllProducts();
+//     res.status(200).json(products);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
+
 export const handleGetAllProducts = async (req, res) => {
   try {
-    const products = await getAllProducts();
-    res.status(200).json(products);
+    const { page = 1, limit = 8, category, isDiscount } = req.query;
+
+    const filter = {};
+    if (category) filter.productType = category.toLowerCase();
+    if (isDiscount === "discount") filter.isDiscount = true;
+
+    const skip = (Number(page) - 1) * Number(limit);
+
+    const { products, total } = await getAllProducts(
+      filter,
+      skip,
+      Number(limit)
+    );
+
+    res.status(200).json({ products, total });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

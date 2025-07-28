@@ -57,15 +57,29 @@ export const deleteProduct = async (productId) => {
   }
 };
 
-export const getAllProducts = async () => {
+// export const getAllProducts = async () => {
+//   try {
+//     const products = await Product.find({ isDelete: false });
+//     return products;
+//   } catch (error) {
+//     throw new Error("Failed to fetch products: " + error.message);
+//   }
+// };
+export const getAllProducts = async (filter = {}, skip = 0, limit = 8) => {
   try {
-    const products = await Product.find({ isDelete: false });
-    return products;
+    // Always include isDelete: false in filter
+    const queryFilter = { isDelete: false, ...filter };
+
+    const products = await Product.find(queryFilter).skip(skip).limit(limit);
+
+    const total = await Product.countDocuments(queryFilter);
+
+    return { products, total };
   } catch (error) {
     throw new Error("Failed to fetch products: " + error.message);
   }
 };
-
+//  new code
 export const getAllDeletedProducts = async () => {
   try {
     const products = await Product.find({ isDelete: true });

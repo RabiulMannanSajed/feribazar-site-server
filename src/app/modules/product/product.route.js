@@ -22,6 +22,4 @@ route.get("/get-all-delete-product", handleGetAllDeleteProducts);
 
 route.delete("/:id", handleDeleteProduct);
 
-//use the auth here admin or manager can delete user
-
 export const ProductRoutes = route;

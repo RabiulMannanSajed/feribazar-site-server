@@ -3,7 +3,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 import router from "./app/router/index.js";
 import compression from "compression";
-// import globalErrorHandler from "./app/middlewares/globalErrorHandler.js";
 
 dotenv.config();
 
@@ -25,5 +24,4 @@ const getController = (req, res) => {
 
 app.get("/", getController);
 
-// app.use(globalErrorHandler);
 export default app;

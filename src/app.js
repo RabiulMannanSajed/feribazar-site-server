@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import router from "./app/router/index.js";
+import compression from "compression";
 // import globalErrorHandler from "./app/middlewares/globalErrorHandler.js";
 
 dotenv.config();
@@ -11,6 +12,7 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(compression());
 // Routes
 app.use("/api/v1/feriBazar", router);
 

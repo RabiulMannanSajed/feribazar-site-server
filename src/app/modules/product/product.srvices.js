@@ -1,9 +1,25 @@
+import { getNextProductNumber } from "../../uitils/utils.js";
 import Product from "./product.model.js";
 
 // Create a new product
+// export const createProduct = async (productData) => {
+//   try {
+//     const newProduct = await Product.create(productData);
+//     return newProduct;
+//   } catch (error) {
+//     throw new Error("Failed to create product: " + error.message);
+//   }
+// };
+
 export const createProduct = async (productData) => {
   try {
-    const newProduct = await Product.create(productData);
+    const productNumber = await getNextProductNumber();
+
+    const newProduct = await Product.create({
+      productNumber,
+      ...productData,
+    });
+
     return newProduct;
   } catch (error) {
     throw new Error("Failed to create product: " + error.message);
@@ -65,21 +81,7 @@ export const getAllProducts = async () => {
     throw new Error("Failed to fetch products: " + error.message);
   }
 };
-// export const getAllProducts = async (filter = {}, skip = 0, limit = 8) => {
-//   try {
-//     // Always include isDelete: false in filter
-//     const queryFilter = { isDelete: false, ...filter };
 
-//     const products = await Product.find(queryFilter).skip(skip).limit(limit);
-
-//     const total = await Product.countDocuments(queryFilter);
-
-//     return { products, total };
-//   } catch (error) {
-//     throw new Error("Failed to fetch products: " + error.message);
-//   }
-// };
-//  new code
 export const getAllDeletedProducts = async () => {
   try {
     const products = await Product.find({ isDelete: true });

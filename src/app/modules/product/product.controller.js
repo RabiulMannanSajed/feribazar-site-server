@@ -17,7 +17,7 @@ export const handleCreateProduct = async (req, res) => {
 };
 
 export const handleGetProductById = async (req, res) => {
-  const productNumber = req.params.productNumber;
+  const { productNumber } = req.params;
   console.log(productNumber);
   try {
     const product = await getProductById(productNumber);

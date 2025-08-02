@@ -14,7 +14,7 @@ route.post("/create-products", handleCreateProduct);
 
 route.patch("/:id", handleUpdateProduct);
 
-route.get("/get-product/:id", handleGetProductById);
+route.get("/get-product/:productNumber", handleGetProductById);
 
 route.get("/get-all-product", handleGetAllProducts);
 

@@ -26,9 +26,9 @@ export const createProduct = async (productData) => {
   }
 };
 
-export const getProductById = async (productId) => {
+export const getProductById = async (productNumber) => {
   try {
-    const product = await Product.findById(productId);
+    const product = await Product.findById(productNumber);
     if (!product) {
       throw new Error("Product not found");
     }

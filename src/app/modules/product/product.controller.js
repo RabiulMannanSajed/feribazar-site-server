@@ -17,10 +17,10 @@ export const handleCreateProduct = async (req, res) => {
 };
 
 export const handleGetProductById = async (req, res) => {
-  const { id } = req.params;
-
+  const productNumber = req.params.productNumber;
+  console.log(productNumber);
   try {
-    const product = await getProductById(id);
+    const product = await getProductById(productNumber);
     res.status(200).json(product);
   } catch (error) {
     res.status(404).json({ message: error.message });

@@ -18,7 +18,7 @@ const moduleRouters = [
     route: AuthRouter,
   },
   {
-    path: "/products",
+    path: "/p",
     route: ProductRoutes,
   },
   {

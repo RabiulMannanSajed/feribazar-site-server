@@ -3,8 +3,7 @@ import { model, Schema, Types } from "mongoose";
 const productDetailsSchema = new Schema({
   productID: [
     {
-      type: Types.ObjectId,
-      ref: "Product",
+      type: String,
     },
   ],
 

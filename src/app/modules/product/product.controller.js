@@ -26,6 +26,7 @@ export const handleGetProductById = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
 export const handleUpdateProduct = async (req, res) => {
   try {
     const updated = await updateProduct(req.params.id, req.body);

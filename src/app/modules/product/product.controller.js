@@ -55,7 +55,7 @@ export const handleDeleteProduct = async (req, res) => {
 // };
 export const handleGetAllProducts = async (req, res) => {
   try {
-    const { page = 1, limit = 8, filterType, category } = req.query;
+    const { page = 1, limit = 8 } = req.query;
 
     const query = { isDelete: false };
 

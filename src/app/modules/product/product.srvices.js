@@ -72,12 +72,7 @@ export const deleteProduct = async (productId) => {
 //   }
 // };
 
-export const getAllProducts = async ({
-  page = 1,
-  limit = 8,
-  filterType,
-  category,
-}) => {
+export const getAllProducts = async ({ page = 1, limit = 8 }) => {
   try {
     const query = { isDelete: false };
 

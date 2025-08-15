@@ -1,16 +1,6 @@
 import { getNextProductNumber } from "../../uitils/utils.js";
 import Product from "./product.model.js";
 
-// Create a new product
-// export const createProduct = async (productData) => {
-//   try {
-//     const newProduct = await Product.create(productData);
-//     return newProduct;
-//   } catch (error) {
-//     throw new Error("Failed to create product: " + error.message);
-//   }
-// };
-
 export const createProduct = async (productData) => {
   try {
     const productNumber = await getNextProductNumber();
@@ -73,10 +63,45 @@ export const deleteProduct = async (productId) => {
   }
 };
 
-export const getAllProducts = async () => {
+// export const getAllProducts = async () => {
+//   try {
+//     const products = await Product.find({ isDelete: false });
+//     return products;
+//   } catch (error) {
+//     throw new Error("Failed to fetch products: " + error.message);
+//   }
+// };
+
+export const getAllProducts = async ({
+  page = 1,
+  limit = 8,
+  filterType,
+  category,
+}) => {
   try {
-    const products = await Product.find({ isDelete: false });
-    return products;
+    const query = { isDelete: false };
+
+    if (filterType === "discount") {
+      query.isDiscount = true;
+    }
+
+    if (category) {
+      query.productType = { $regex: new RegExp(`^${category}$`, "i") };
+    }
+
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+
+    const [products, total] = await Promise.all([
+      Product.find(query).skip(skip).limit(parseInt(limit)),
+      Product.countDocuments(query),
+    ]);
+
+    return {
+      products,
+      total,
+      page: parseInt(page),
+      totalPages: Math.ceil(total / parseInt(limit)),
+    };
   } catch (error) {
     throw new Error("Failed to fetch products: " + error.message);
   }

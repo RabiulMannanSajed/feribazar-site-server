@@ -45,10 +45,43 @@ export const handleDeleteProduct = async (req, res) => {
   }
 };
 
+// export const handleGetAllProducts = async (req, res) => {
+//   try {
+//     const products = await getAllProducts();
+//     res.status(200).json(products);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
 export const handleGetAllProducts = async (req, res) => {
   try {
-    const products = await getAllProducts();
-    res.status(200).json(products);
+    const { page = 1, limit = 8, filterType, category } = req.query;
+
+    const query = { isDelete: false };
+
+    // Filter discount products if requested
+    if (filterType === "discount") {
+      query.isDiscount = true;
+    }
+
+    // Filter by category if provided
+    if (category) {
+      query.productType = { $regex: new RegExp(`^${category}$`, "i") };
+    }
+
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+
+    const [products, total] = await Promise.all([
+      Product.find(query).skip(skip).limit(parseInt(limit)),
+      Product.countDocuments(query),
+    ]);
+
+    res.status(200).json({
+      products,
+      total,
+      page: parseInt(page),
+      totalPages: Math.ceil(total / parseInt(limit)),
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

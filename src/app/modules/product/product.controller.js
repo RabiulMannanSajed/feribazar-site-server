@@ -53,6 +53,7 @@ export const handleDeleteProduct = async (req, res) => {
 //     res.status(500).json({ message: error.message });
 //   }
 // };
+
 export const handleGetAllProducts = async (req, res) => {
   try {
     const { page = 1, limit = 8 } = req.query;
@@ -72,8 +73,8 @@ export const handleGetAllProducts = async (req, res) => {
     const skip = (parseInt(page) - 1) * parseInt(limit);
 
     const [products, total] = await Promise.all([
-      Product.find(query).skip(skip).limit(parseInt(limit)),
-      Product.countDocuments(query),
+      products.find(query).skip(skip).limit(parseInt(limit)),
+      products.countDocuments(query),
     ]);
 
     res.status(200).json({

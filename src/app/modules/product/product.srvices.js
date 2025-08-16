@@ -76,14 +76,6 @@ export const getAllProducts = async ({ page = 1, limit = 8 }) => {
   try {
     const query = { isDelete: false };
 
-    if (filterType === "discount") {
-      query.isDiscount = true;
-    }
-
-    if (category) {
-      query.productType = { $regex: new RegExp(`^${category}$`, "i") };
-    }
-
     const skip = (parseInt(page) - 1) * parseInt(limit);
 
     const [products, total] = await Promise.all([

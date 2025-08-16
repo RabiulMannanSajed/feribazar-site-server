@@ -1,3 +1,4 @@
+import Product from "./product.model.js";
 import {
   createProduct,
   deleteProduct,
@@ -80,31 +81,20 @@ export const handleDeleteProduct = async (req, res) => {
 
 export const handleGetAllProducts = async (req, res) => {
   try {
+    // ✅ Get page and limit from query params
     let { page = 1, limit = 10 } = req.query;
 
-    page = parseInt(page);
-    limit = parseInt(limit);
-
-    const skip = (page - 1) * limit;
-
-    const products = await Product.find().skip(skip).limit(limit);
-
-    const totalProducts = await Product.countDocuments();
+    const result = await getAllProducts({ page, limit }); // ✅ pass values to service
 
     res.status(200).json({
       success: true,
-      data: products,
-      pagination: {
-        totalProducts,
-        totalPages: Math.ceil(totalProducts / limit),
-        currentPage: page,
-      },
+      data: result.products,
+      pagination: result, // optional: total, totalPages, page
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
-
 export const handleGetAllDeleteProducts = async (req, res) => {
   try {
     const products = await getAllDeletedProducts();

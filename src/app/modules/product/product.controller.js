@@ -82,7 +82,7 @@ export const handleDeleteProduct = async (req, res) => {
 export const handleGetAllProducts = async (req, res) => {
   try {
     // ✅ Get page and limit from query params
-    let { page = 1, limit = 10 } = req.query;
+    let { page = 1, limit = 4 } = req.query;
 
     const result = await getAllProducts({ page, limit }); // ✅ pass values to service
 

@@ -54,24 +54,51 @@ export const handleDeleteProduct = async (req, res) => {
 //   }
 // };
 
+// export const handleGetAllProducts = async (req, res) => {
+//   try {
+//     const { page = 1, limit = 8 } = req.query;
+
+//     const query = { isDelete: false };
+
+//     const skip = (parseInt(page) - 1) * parseInt(limit);
+
+//     const [products, total] = await Promise.all([
+//       products.find(query).skip(skip).limit(parseInt(limit)),
+//       products.countDocuments(query),
+//     ]);
+
+//     res.status(200).json({
+//       products,
+//       total,
+//       page: parseInt(page),
+//       totalPages: Math.ceil(total / parseInt(limit)),
+//     });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
+
 export const handleGetAllProducts = async (req, res) => {
   try {
-    const { page = 1, limit = 8 } = req.query;
+    let { page = 1, limit = 10 } = req.query;
 
-    const query = { isDelete: false };
+    page = parseInt(page);
+    limit = parseInt(limit);
 
-    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const skip = (page - 1) * limit;
 
-    const [products, total] = await Promise.all([
-      products.find(query).skip(skip).limit(parseInt(limit)),
-      products.countDocuments(query),
-    ]);
+    const products = await Product.find().skip(skip).limit(limit);
+
+    const totalProducts = await Product.countDocuments();
 
     res.status(200).json({
-      products,
-      total,
-      page: parseInt(page),
-      totalPages: Math.ceil(total / parseInt(limit)),
+      success: true,
+      data: products,
+      pagination: {
+        totalProducts,
+        totalPages: Math.ceil(totalProducts / limit),
+        currentPage: page,
+      },
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

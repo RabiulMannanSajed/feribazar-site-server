@@ -63,36 +63,36 @@ export const deleteProduct = async (productId) => {
   }
 };
 
-// export const getAllProducts = async () => {
-//   try {
-//     const products = await Product.find({ isDelete: false });
-//     return products;
-//   } catch (error) {
-//     throw new Error("Failed to fetch products: " + error.message);
-//   }
-// };
-
-export const getAllProducts = async ({ page = 1, limit = 4 }) => {
+export const getAllProducts = async () => {
   try {
-    const query = { isDelete: false };
-
-    const skip = (parseInt(page) - 1) * parseInt(limit);
-
-    const [products, total] = await Promise.all([
-      Product.find(query).skip(skip).limit(parseInt(limit)),
-      Product.countDocuments(query),
-    ]);
-
-    return {
-      products,
-      total,
-      page: parseInt(page),
-      totalPages: Math.ceil(total / parseInt(limit)),
-    };
+    const products = await Product.find({ isDelete: false });
+    return products;
   } catch (error) {
     throw new Error("Failed to fetch products: " + error.message);
   }
 };
+
+// export const getAllProducts = async ({ page = 1, limit = 4 }) => {
+//   try {
+//     const query = { isDelete: false };
+
+//     const skip = (parseInt(page) - 1) * parseInt(limit);
+
+//     const [products, total] = await Promise.all([
+//       Product.find(query).skip(skip).limit(parseInt(limit)),
+//       Product.countDocuments(query),
+//     ]);
+
+//     return {
+//       products,
+//       total,
+//       page: parseInt(page),
+//       totalPages: Math.ceil(total / parseInt(limit)),
+//     };
+//   } catch (error) {
+//     throw new Error("Failed to fetch products: " + error.message);
+//   }
+// };
 
 export const getAllDeletedProducts = async () => {
   try {

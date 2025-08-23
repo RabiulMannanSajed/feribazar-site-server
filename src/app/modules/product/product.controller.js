@@ -46,14 +46,14 @@ export const handleDeleteProduct = async (req, res) => {
   }
 };
 
-// export const handleGetAllProducts = async (req, res) => {
-//   try {
-//     const products = await getAllProducts();
-//     res.status(200).json(products);
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };
+export const handleGetAllProducts = async (req, res) => {
+  try {
+    const products = await getAllProducts();
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 // export const handleGetAllProducts = async (req, res) => {
 //   try {
@@ -79,22 +79,23 @@ export const handleDeleteProduct = async (req, res) => {
 //   }
 // };
 
-export const handleGetAllProducts = async (req, res) => {
-  try {
-    // ✅ Get page and limit from query params
-    let { page = 1, limit = 4 } = req.query;
+// export const handleGetAllProducts = async (req, res) => {
+//   try {
+//     // ✅ Get page and limit from query params
+//     let { page = 1, limit = 4 } = req.query;
 
-    const result = await getAllProducts({ page, limit }); // ✅ pass values to service
+//     const result = await getAllProducts({ page, limit }); // ✅ pass values to service
 
-    res.status(200).json({
-      success: true,
-      data: result.products,
-      pagination: result, // optional: total, totalPages, page
-    });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+//     res.status(200).json({
+//       success: true,
+//       data: result.products,
+//       pagination: result, // optional: total, totalPages, page
+//     });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
+
 export const handleGetAllDeleteProducts = async (req, res) => {
   try {
     const products = await getAllDeletedProducts();

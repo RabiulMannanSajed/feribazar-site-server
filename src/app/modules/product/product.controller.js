@@ -1,4 +1,3 @@
-import Product from "./product.model.js";
 import {
   createProduct,
   deleteProduct,
@@ -104,3 +103,10 @@ export const handleGetAllDeleteProducts = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// https://i.ibb.co.com/qMFSt4RD/IMG-20250710-124611.png
+// https://i.ibb.co.com/FbzSKnZ2/smallchui.png
+// https://i.ibb.co.com/jvQp62WS/dryfish.png
+// https://i.ibb.co.com/KxNGmSp1/combobalachow.png
+// https://i.ibb.co.com/5XMmcL3n/chui.png
+// https://i.ibb.co.com/qMFSt4RD/IMG-20250710-124611.png

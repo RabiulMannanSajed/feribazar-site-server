@@ -17,3 +17,12 @@ export const getAllClientOrders = async () => {
     throw new Error("Failed to retrieve orders: " + error.message);
   }
 };
+
+export const markOrderDelivered = async (orderId) => {
+  const updated = await ClientOrder.findByIdAndUpdate(
+    orderId,
+    { isDelivered: true },
+    { new: true }
+  );
+  return updated;
+};

@@ -39,6 +39,10 @@ const clientOrderSchema = new Schema(
       type: Date,
       default: Date.now,
     },
+    isDelivered: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

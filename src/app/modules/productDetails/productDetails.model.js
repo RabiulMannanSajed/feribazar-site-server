@@ -1,4 +1,5 @@
-import { model, Schema, Types } from "mongoose";
+import { model, Schema } from "mongoose";
+import { getNextProductNumber } from "../../uitils/utils.js";
 
 const productDetailsSchema = new Schema({
   productID: [
@@ -6,6 +7,11 @@ const productDetailsSchema = new Schema({
       type: String,
     },
   ],
+
+  productRefId: {
+    type: Schema.Types.ObjectId,
+    ref: "Product",
+  },
 
   details: {
     type: String,

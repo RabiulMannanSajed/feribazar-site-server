@@ -1,16 +1,30 @@
+import Product from "../product/product.model.js";
 import { ProductDetails } from "./productDetails.model.js";
-
-// Create ProductDetails (only if productID not already exists)
 export const createProductDetails = async (data) => {
+  // check if this product already has details
   const existing = await ProductDetails.findOne({
-    productID: { $in: data.productID },
+    productRefId: data.productRefId,
   });
-
   if (existing) {
-    throw new Error("One or more productIDs already have details.");
+    throw new Error("This product already has details.");
   }
 
-  const created = await ProductDetails.create(data);
+  // count products (only non-deleted ones if you use isDelete flag)
+  const productCount = await Product.countDocuments({ isDelete: false });
+
+  const newProductId = productCount + 1; // auto increment style
+
+  // create ProductDetails with that productID
+  const created = await ProductDetails.create({
+    ...data,
+    productID: newProductId,
+  });
+
+  // update Product with the same number
+  await Product.findByIdAndUpdate(data.productRefId, {
+    productNumber: newProductId,
+  });
+
   return created;
 };
 

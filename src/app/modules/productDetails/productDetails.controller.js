@@ -28,57 +28,40 @@ export const handleGetAllProductDetails = async (req, res) => {
   }
 };
 
-// export const handleUpdateProductDetails = async (req, res) => {
-//   try {
-//     const { productIDs, updateData } = req.body;
-
-//     if (!Array.isArray(productIDs) || productIDs.length === 0) {
-//       return res
-//         .status(400)
-//         .json({ message: "productIDs must be a non-empty array." });
-//     }
-
-//     // Validate each ID
-//     const invalidIDs = productIDs.filter(
-//       (id) => !mongoose.Types.ObjectId.isValid(id)
-//     );
-//     if (invalidIDs.length > 0) {
-//       return res.status(400).json({
-//         message: "Invalid productID(s) provided.",
-//         invalidIDs,
-//       });
-//     }
-
-//     const updated = await updateProductDetails(productIDs, updateData);
-
-//     if (updated.modifiedCount === 0) {
-//       return res
-//         .status(404)
-//         .json({ message: "No matching product details found to update." });
-//     }
-
-//     res.status(200).json({
-//       message: "Product details updated successfully",
-//       result: updated,
-//     });
-//   } catch (err) {
-//     res.status(400).json({ message: err.message });
-//   }
-// };
-
-export const updateProductDetailsController = async (req, res) => {
+export const handleUpdateProductDetails = async (req, res) => {
   try {
     const { productIDs, updateData } = req.body;
-    const result = await updateProductDetails(productIDs, updateData);
+
+    if (!Array.isArray(productIDs) || productIDs.length === 0) {
+      return res
+        .status(400)
+        .json({ message: "productIDs must be a non-empty array." });
+    }
+
+    // Validate each ID
+    const invalidIDs = productIDs.filter(
+      (id) => !mongoose.Types.ObjectId.isValid(id)
+    );
+    if (invalidIDs.length > 0) {
+      return res.status(400).json({
+        message: "Invalid productID(s) provided.",
+        invalidIDs,
+      });
+    }
+
+    const updated = await updateProductDetails(productIDs, updateData);
+
+    if (updated.modifiedCount === 0) {
+      return res
+        .status(404)
+        .json({ message: "No matching product details found to update." });
+    }
+
     res.status(200).json({
-      success: true,
       message: "Product details updated successfully",
-      data: result,
+      result: updated,
     });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message || "Error updating product details",
-    });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
 };

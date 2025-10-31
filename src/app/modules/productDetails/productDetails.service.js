@@ -34,27 +34,19 @@ export const getAllProductDetails = async () => {
 };
 
 // export const updateProductDetails = async (productIDs, updateData) => {
-//   const result = await ProductDetails.updateMany(
-//     { productID: { $in: productIDs } },
-//     { $set: updateData }
-//   );
-//   return result;
+//   try {
+//     // Ensure productIDs are strings or ObjectIds
+//     const objectIds = productIDs.map((id) => id.toString());
+
+//     const result = await ProductDetails.updateMany(
+//       { productID: { $in: objectIds } },
+//       { $set: updateData },
+//       { new: true }
+//     );
+
+//     return result;
+//   } catch (error) {
+//     console.error("Error updating product details:", error);
+//     throw new Error("Failed to update product details");
+//   }
 // };
-
-export const updateProductDetails = async (productIDs, updateData) => {
-  try {
-    // Ensure productIDs are strings or ObjectIds
-    const objectIds = productIDs.map((id) => id.toString());
-
-    const result = await ProductDetails.updateMany(
-      { productID: { $in: objectIds } },
-      { $set: updateData },
-      { new: true }
-    );
-
-    return result;
-  } catch (error) {
-    console.error("Error updating product details:", error);
-    throw new Error("Failed to update product details");
-  }
-};

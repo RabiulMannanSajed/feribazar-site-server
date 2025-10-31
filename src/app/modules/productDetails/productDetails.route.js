@@ -9,7 +9,7 @@ const route = Router();
 
 route.post("/create-product-details", handleCreateProductDetails);
 
-route.patch("/:productID", handleUpdateProductDetails);
+route.patch("/:productRefId", handleUpdateProductDetails);
 
 route.get("/get-product-details", handleGetAllProductDetails);
 

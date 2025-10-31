@@ -1,5 +1,7 @@
 import Product from "../product/product.model.js";
 import { ProductDetails } from "./productDetails.model.js";
+import mongoose from "mongoose";
+
 export const createProductDetails = async (data) => {
   // check if this product already has details
   const existing = await ProductDetails.findOne({

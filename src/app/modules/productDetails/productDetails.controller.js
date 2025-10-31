@@ -3,7 +3,7 @@ import {
   getAllProductDetails,
   updateProductDetails,
 } from "./productDetails.service.js";
-
+import mongoose from "mongoose";
 export const handleCreateProductDetails = async (req, res) => {
   console.log(req.body);
   try {
@@ -31,23 +31,6 @@ export const handleGetAllProductDetails = async (req, res) => {
 export const handleUpdateProductDetails = async (req, res) => {
   try {
     const { productIDs, updateData } = req.body;
-
-    if (!Array.isArray(productIDs) || productIDs.length === 0) {
-      return res
-        .status(400)
-        .json({ message: "productIDs must be a non-empty array." });
-    }
-
-    // Validate each ID
-    const invalidIDs = productIDs.filter(
-      (id) => !mongoose.Types.ObjectId.isValid(id)
-    );
-    if (invalidIDs.length > 0) {
-      return res.status(400).json({
-        message: "Invalid productID(s) provided.",
-        invalidIDs,
-      });
-    }
 
     const updated = await updateProductDetails(productIDs, updateData);
 

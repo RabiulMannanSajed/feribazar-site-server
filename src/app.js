@@ -21,6 +21,12 @@ const getController = (req, res) => {
     message: "feriBazar is running ",
   });
 };
+app.get("/code/:barcode", (req, res) => {
+  const barcode = req.params.barcode;
+
+  const productID = barcode.slice(-1); // last digit → product ID
+  return res.redirect(`https://feribazarbd.com/p/${productID}`);
+});
 
 app.get("/", getController);
 

@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 
 export const createUserIntoDB = async (userData) => {
   const { name, email, password, phone, address } = userData;
+  console.log(userData);
   const existingUser = await User.findOne({ email });
   if (existingUser) {
     throw new Error("User with this email already exists");

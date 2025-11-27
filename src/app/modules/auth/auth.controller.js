@@ -7,7 +7,7 @@ import crypto from "crypto";
 export const registerByEmail = async (req, res, next) => {
   try {
     const { email, name = "", phone = "", address = "" } = req.body;
-
+    console.log(email);
     if (!email) return res.status(400).json({ message: "Email is required" });
 
     // Validate email simple regex
@@ -60,16 +60,21 @@ Please change your password after logging in.
       </div>
     `;
 
-    await sendEmail({ to: email, subject, text, html });
+    sendEmail({ to: email, subject, text, html });
 
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       message: "Account created. Generated password sent to the given email.",
       data: { email: newUser.email },
     });
   } catch (error) {
-    // if createUserIntoDB throws 'User with this email already exists' it will be handled here
-    next(error);
+    console.error("Registration error:", error);
+    return res
+      .status(error.message.includes("already exists") ? 409 : 500)
+      .json({
+        success: false,
+        message: error.message || "Registration failed",
+      });
   }
 };
 

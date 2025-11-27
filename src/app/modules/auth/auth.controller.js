@@ -60,7 +60,7 @@ Please change your password after logging in.
       </div>
     `;
 
-    sendEmail({ to: email, subject, text, html });
+    await sendEmail({ to: email, subject, text, html });
 
     return res.status(201).json({
       success: true,

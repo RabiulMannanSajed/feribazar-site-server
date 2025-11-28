@@ -28,9 +28,7 @@ export const registerByEmail = async (req, res, next) => {
     });
 
     // Prepare login url (frontend will read email query param)
-    const loginUrl = `${
-      process.env.FRONTEND_URL
-    }/login?email=${encodeURIComponent(email)}`;
+    const loginUrl = `${process.env.FRONTEND_URL}/register`;
 
     // Compose email
     const subject = "Welcome to feriBazar — your account is ready";
@@ -60,7 +58,7 @@ Please change your password after logging in.
       </div>
     `;
 
-    await sendEmail({ to: email, subject, html });
+    await sendEmail({ to: email, subject, text, html });
 
     return res.status(201).json({
       success: true,

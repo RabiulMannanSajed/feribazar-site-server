@@ -7,7 +7,6 @@ import crypto from "crypto";
 export const registerByEmail = async (req, res, next) => {
   try {
     const { email, name = "", phone = "", address = "" } = req.body;
-    console.log(email);
     if (!email) return res.status(400).json({ message: "Email is required" });
 
     // Validate email simple regex
@@ -58,7 +57,20 @@ Please change your password after logging in.
       </div>
     `;
 
-    await sendEmail({ to: email, subject, text, html });
+    try {
+      await sendEmail({ to: email, subject, text, html });
+      console.log(`✅ Registration complete for ${email}`);
+    } catch (emailError) {
+      console.error("⚠️ User created but email failed:", emailError);
+      // User is created, so still return success
+      // but inform them email might be delayed
+      return res.status(201).json({
+        success: true,
+        message:
+          "Account created successfully. If you don't receive the email, please contact support.",
+        data: { email: newUser.email },
+      });
+    }
 
     return res.status(201).json({
       success: true,

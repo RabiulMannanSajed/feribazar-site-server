@@ -27,7 +27,7 @@ export const registerByEmail = async (req, res, next) => {
     });
 
     // Prepare login url (frontend will read email query param)
-    const loginUrl = `${process.env.FRONTEND_URL}/register`;
+    const loginUrl = `${process.env.FRONTEND_URL}register`;
 
     // Compose email
     const subject = "Welcome to feriBazar — your account is ready";

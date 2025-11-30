@@ -16,7 +16,15 @@ const productDetailsSchema = new Schema({
   details: {
     type: String,
   },
-
+  titleOne: {
+    type: String,
+  },
+  titleTwo: {
+    type: String,
+  },
+  titleThree: {
+    type: String,
+  },
   benefit: [
     {
       title: { type: String },

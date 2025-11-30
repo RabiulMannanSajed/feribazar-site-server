@@ -6,58 +6,12 @@ import {
   markOrderDelivered,
 } from "./clientOrder.services.js";
 
-// export const handleCreateClientOrder = async (req, res) => {
-//   try {
-//     console.log("Received order data:", req.body);
-
-//     // ✅ Create order and get product details
-//     const { order, products } = await createClientOrder(req.body);
-
-//     console.log("Order created:", order._id);
-//     console.log("Products:", products);
-
-//     // ✅ Generate email content with products
-//     const { subject, html, text } = orderConfirmationEmail(order, products);
-//     console.log(subject, html, text);
-
-//     try {
-//       await sendEmail({ to: order.email, subject, text, html });
-//       console.log(`Order confirmation email sent to ${order.email}`);
-//     } catch (emailError) {
-//       console.error(`❌ Email failed for order ${order._id}:`, emailError);
-
-//       return res.status(201).json({
-//         success: true,
-//         message:
-//           "Account created successfully. If you don't receive the email, please contact support.",
-//         data: { email: order.email },
-//       });
-//     }
-
-//     // ✅ Respond immediately
-//     res.status(201).json({
-//       success: true,
-//       message: "Order placed successfully! Confirmation email sent.",
-//       data: order,
-//     });
-//   } catch (error) {
-//     console.error("Order creation error:", error);
-//     res.status(500).json({
-//       success: false,
-//       message: error.message || "Failed to create order",
-//     });
-//   }
-// };
-
 export const handleCreateClientOrder = async (req, res) => {
   try {
     console.log("Received order data:", req.body);
 
     // Create order and get product details
     const { order, products } = await createClientOrder(req.body);
-
-    console.log("Order created:", order._id);
-    console.log("Products:", products);
 
     // Generate email content
     const { subject, html, text } = orderConfirmationEmail(order, products);
@@ -76,7 +30,6 @@ export const handleCreateClientOrder = async (req, res) => {
 
     try {
       await Promise.race([emailPromise, timeoutPromise]);
-      console.log(`✅ Email sent to ${order.email}`);
     } catch (emailError) {
       // Email failed or timed out, but order is created
       console.error(`⚠️ Email issue:`, emailError.message);

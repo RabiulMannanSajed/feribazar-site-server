@@ -1,20 +1,6 @@
 import Product from "../product/product.model.js";
 import { ClientOrder } from "./clientOrder.modle.js";
 
-// export const createClientOrder = async (orderData) => {
-//   try {
-//     const newOrder = await ClientOrder.create(orderData);
-//     return newOrder;
-//   } catch (error) {
-//     throw new Error("Failed to create order: " + error.message);
-//   }
-// };
-
-// services/clientOrderService.js
-
-// import { ClientOrder } from "../models/ClientOrder.js";
-// import Product from "../models/Product.js"; // ✅ Import your Product model
-
 export const createClientOrder = async (orderData) => {
   try {
     // Create the order

@@ -10,7 +10,6 @@ export const orderConfirmationEmail = (orderData, products) => {
   );
   const total = subtotal + orderData.deliveryCharge;
 
-  // Generate product rows HTML
   const productRows = products
     .map(
       (item) => `

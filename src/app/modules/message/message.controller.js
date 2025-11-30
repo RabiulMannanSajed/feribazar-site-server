@@ -50,17 +50,18 @@ export const sendContactMessage = async (req, res) => {
     });
 
     // Send confirmation email (fire and forget to avoid timeout)
-    sendEmail({
-      to: email,
-      subject,
-      html,
-      text,
-    })
-      .then(() => console.log(`✅ Contact confirmation email sent to ${email}`))
-      .catch((err) =>
-        console.error(`❌ Email failed for contact message:`, err)
-      );
+    const emailPromise = sendEmail({ to: email, subject, html, text });
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("Email timeout")), 8000)
+    );
 
+    try {
+      await Promise.race([emailPromise, timeoutPromise]);
+      console.log(`✅ Confirmation email sent to ${email}`);
+    } catch (emailError) {
+      console.error(`⚠️ Email issue:`, emailError.message);
+      // Continue anyway - message is saved
+    }
     // Respond immediately
     res.status(201).json({
       success: true,

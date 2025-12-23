@@ -34,7 +34,12 @@ export const createClientOrder = async (orderData) => {
 
 export const getAllClientOrders = async () => {
   try {
-    const orders = await ClientOrder.find(); // You can also use .populate() if needed
+    const orders = await ClientOrder.find()
+      .populate({
+        path: "products.productId",
+        select: "name price image weight productType isDiscount discountPrice",
+      })
+      .sort({ createdAt: -1 }); // You can also use .populate() if needed
     return orders;
   } catch (error) {
     throw new Error("Failed to retrieve orders: " + error.message);

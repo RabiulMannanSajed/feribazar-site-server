@@ -19,7 +19,7 @@ export const contactMessageConfirmation = (contactData) => {
           <!-- Header -->
           <tr>
             <td style="background: linear-gradient(135deg, #67B96E 0%, #58a760 100%); padding: 30px; text-align: center;">
-              <h1 style="margin: 0; color: #ffffff; font-size: 28px;">📧 Message Received!</h1>
+              <h1 style="margin: 0; color: #ffffff; font-size: 28px;"> Message Received!</h1>
               <p style="margin: 10px 0 0 0; color: #ffffff; font-size: 14px;">We'll get back to you soon</p>
             </td>
           </tr>

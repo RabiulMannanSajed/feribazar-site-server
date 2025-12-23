@@ -1,4 +1,3 @@
-import bcrypt from "bcryptjs";
 import { User } from "../users/user.model.js";
 export const LoginUser = async ({ email, password }) => {
   // here check the user present or not

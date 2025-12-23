@@ -21,14 +21,17 @@ const moduleRouters = [
     path: "/p",
     route: ProductRoutes,
   },
+
   {
     path: "/productsDetails",
     route: ProductDetailsRoutes,
   },
+
   {
     path: "/clientOrder",
     route: ClientOrderRoutes,
   },
+
   {
     path: "/message",
     route: MessageRoutes,

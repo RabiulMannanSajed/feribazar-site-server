@@ -153,12 +153,7 @@ export const orderConfirmationEmail = (orderData, products) => {
               </div>
 
               <!-- Call to Action -->
-              <div style="text-align: center; margin-top: 30px;">
-                <a href="${process.env.FRONTEND_URL}/orders/${orderData._id}" 
-                   style="display: inline-block; background-color: #67B96E; color: #ffffff; padding: 14px 32px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 14px;">
-                  Track Your Order
-                </a>
-              </div>
+          
 
             </td>
           </tr>

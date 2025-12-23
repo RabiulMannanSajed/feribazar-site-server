@@ -1,5 +1,4 @@
 import { User } from "./user.model.js";
-import bcrypt from "bcryptjs";
 
 export const createUserIntoDB = async (userData) => {
   const { name, email, password, phone, address } = userData;
@@ -32,30 +31,27 @@ export const getAllUserFormDB = async () => {
 };
 
 export const updateUserInDB = async (id, updatedData) => {
-  // Prevent updating email and password
-  delete updatedData.email;
-  delete updatedData.password;
-  delete updatedData.isDeleted;
-  delete updatedData.role;
-  delete updatedData.workingList;
+  console.log(id, updatedData);
+  const allowedFields = ["name", "phone"];
+  const dataToUpdate = {};
 
-  // checking the user info
-  console.log("userId", id);
-  console.log("userData", updatedData);
+  allowedFields.forEach((field) => {
+    if (updatedData[field] !== undefined) {
+      dataToUpdate[field] = updatedData[field];
+    }
+  });
 
-  const existingUser = await User.findOne({ _id: id, isDeleted: false });
+  // const existingUser = await User.findOne({ _id: id, isDeleted: false });
+  const existingUser = await User.findOne({ _id: id });
 
   if (!existingUser) {
     throw new Error("User not found or has been deleted");
   }
 
-  // Perform the update
-  const updatedUser = await User.findByIdAndUpdate(id, updatedData, {
+  return await User.findByIdAndUpdate(id, dataToUpdate, {
     new: true,
-    runValidators: true, // apply schema validators
+    runValidators: true,
   });
-
-  return updatedUser;
 };
 
 export const deleteUserFromDB = async (id) => {
